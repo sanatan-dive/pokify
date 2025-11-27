@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int       @id @default(autoincrement())
+  walletAddress       String    @unique
+  chain               String    @default("base")
+  resolvedName        String?
+  nativeBalanceUSD    Float     @default(0)
+  tokenValueUSD       Float     @default(0)
+  nftCount            Int       @default(0)
+  txCount             Int       @default(0)
+  powerScore          Int       @default(0)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  
+  creatures           Creature[]
+
+  @@index([walletAddress])
+  @@index([powerScore])
+}
+
+model Creature {
+  id                  Int       @id @default(autoincrement())
+  userId              Int
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name                String
+  type                String
+  role                String
+  rarity              String
+  
+  // Stats
+  attack              Int
+  defense             Int
+  speed               Int
+  wisdom              Int
+  luck                Int
+  
+  flavorText          String
+  imageUrl            String
+  
+  onChainTokenId      String?
+  mintedAt            DateTime?
+  
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([rarity])
+}
+
