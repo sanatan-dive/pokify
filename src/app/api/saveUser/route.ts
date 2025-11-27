@@ -76,8 +76,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       JSON.stringify({ message: "User and creature saved successfully", user, creature: savedCreature }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error saving user and creature data:", error);
-    return new NextResponse(JSON.stringify({ error: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+    return new NextResponse(JSON.stringify({ error: error.message || "Unknown error" }), { status: 500, headers: { "Content-Type": "application/json" } });
   }
 }

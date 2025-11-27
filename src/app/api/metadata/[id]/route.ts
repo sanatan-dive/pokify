@@ -33,10 +33,17 @@ export async function GET(
 
     // Generate ERC-721 compliant metadata
     const metadata = {
-      name: `Trainer: ${creature.user.resolvedName || creature.user.walletAddress.slice(0, 6) + "..." + creature.user.walletAddress.slice(-4)}`,
+      name: `Trainer: ${
+        creature.user.resolvedName ||
+        creature.user.walletAddress.slice(0, 6) +
+          "..." +
+          creature.user.walletAddress.slice(-4)
+      }`,
       description: `${creature.rarity} ${creature.type}-type ${creature.role}: ${creature.name}. ${creature.flavorText}`,
       image: creature.imageUrl,
-      external_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/profile/${creature.user.walletAddress}`,
+      external_url: `${
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+      }/profile/${creature.user.walletAddress}`,
       attributes: [
         {
           trait_type: "Rarity",

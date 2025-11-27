@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import Image from "next/image";
 
 // Define the User interface to specify the shape of the data
 interface User {
@@ -136,7 +137,7 @@ const Leaderboard = () => {
 
                       <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border-2 border-red-500 flex items-center justify-center bg-stone-800 text-2xl overflow-hidden">
                         {creature ? (
-                          <img
+                          <Image
                             src={
                               creature.imageUrl?.startsWith("/") ||
                               creature.imageUrl?.startsWith("http")
@@ -144,6 +145,8 @@ const Leaderboard = () => {
                                 : getCreatureImage(creature.type)
                             }
                             alt={creature.name}
+                            width={56}
+                            height={56}
                             className="w-full h-full object-cover"
                           />
                         ) : (
