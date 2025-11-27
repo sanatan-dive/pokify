@@ -5,10 +5,11 @@ const prisma = new PrismaClient();
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
-    const creatureId = parseInt(params.id);
+    const { id } = await context.params;
+    const creatureId = parseInt(id);
 
     if (isNaN(creatureId)) {
       return NextResponse.json(
